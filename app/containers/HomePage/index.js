@@ -11,6 +11,7 @@
 
 import React from 'react';
 import PhotoCard from 'components/PhotoCard';
+import HeaderBar from 'components/HeaderBar';
 import { Grid, Row } from 'react-bootstrap/lib';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -23,15 +24,16 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       <Wrapper>
         <div className="photo-canvas">
           <h1>
-            <Grid>
-              <Row>
-                <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
-                <PhotoCard key="b" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
-                <PhotoCard key="c" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
-                <PhotoCard key="d" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
-              </Row>
-            </Grid>
+            <FormattedMessage {...messages.header} />
           </h1>
+          <Grid>
+            <Row>
+              <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
+              <PhotoCard key="b" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
+              <PhotoCard key="c" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
+              <PhotoCard key="d" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
+            </Row>
+          </Grid>
         </div>
       </Wrapper>
     );
