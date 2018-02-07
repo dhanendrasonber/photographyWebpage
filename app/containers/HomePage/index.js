@@ -1,24 +1,41 @@
 /*
  * HomePage
  *
- * This is the first thing users see of our App, at the '/' route
+ * Get list location folders with: GET https://www.googleapis.com/drive/v2/files/1Iv8dHdXs7Vvdz0PC9lnU2fE-oBmXOIlh/children
+ * Map over this list to convert IDs to strings with: GET https://www.googleapis.com/drive/v2/files/folderId
+ * Get a list of each of the photos in each folder with: GET https://www.googleapis.com/drive/v2/files/folderId/children
+ * Build URL for each of the photos with the following template: https://drive.google.com/uc?export=view&id=fileId
  *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
+ * Images loaded via Google drive load slowly; going to load them all prior to rendering
  */
 
 import React from 'react';
 import PhotoCard from 'components/PhotoCard';
 // import HeaderBar from 'components/HeaderBar';
-import { Grid, Row } from 'react-bootstrap/lib';
+import { Grid, Row, Button } from 'react-bootstrap/lib';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import injectSaga from 'utils/injectSaga';
+// import { RESTART_ON_REMOUNT } from 'utils/constants';
+import saga from './saga';
+
+import messages from './messages';
+import * as actions from './actions';
+import { makeSelectActivePage } from './selectors';
 import Wrapper from './Wrapper';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    console.log('MOUNT');
+    this.props.onPageLoad();
+  }
+  onButtonClick = () => {
+    console.log('buttonclick');
+    this.props.onPageLoad();
+  }
   render() {
     return (
       <Wrapper>
@@ -34,8 +51,32 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <PhotoCard key="d" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
             </Row>
           </Grid>
+          <Button onClick={this.onButtonClick}> BERLIN </Button>
+          <Button> MELBOURNE </Button>
+          <Button> DUBLIN </Button>
         </div>
       </Wrapper>
     );
   }
 }
+
+const mapStateToProps = createStructuredSelector({
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onPageLoad() {
+      dispatch(actions.pageLoadAction());
+    },
+  };
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withSaga = injectSaga({ key: 'home', saga });
+// const withReducer = injectReducer({ key: 'home', reducer });
+
+export default compose(
+  // withReducer,
+  withSaga,
+  withConnect,
+)(HomePage);
