@@ -5,6 +5,7 @@
  * Map over this list to convert IDs to strings with: GET https://www.googleapis.com/drive/v2/files/folderId
  * Get a list of each of the photos in each folder with: GET https://www.googleapis.com/drive/v2/files/folderId/children
  * Build URL for each of the photos with the following template: https://drive.google.com/uc?export=view&id=fileId
+ * Refresh Token: 1/YEFQ_GC-IbEauYPBZ6HPleAV5IU0jkF_ytX0dmg8fNQ
  *
  * Images loaded via Google drive load slowly; going to load them all prior to rendering
  */
