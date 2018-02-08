@@ -9,6 +9,7 @@ h1 {
   background-color: #3A3535;
   height: 100%;
   color: white;
+
 }
 
 `;

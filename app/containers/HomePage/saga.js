@@ -4,8 +4,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { PAGE_LOAD } from './constants';
 
 export function* pageLoaded(action) {
-  console.log('Page Loaded Sage Triggered');
-  console.log(action);
   try {
     console.log('Page Loaded Sage Triggered');
   } catch (err) {

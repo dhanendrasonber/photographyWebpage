@@ -11,7 +11,7 @@
 
 import React from 'react';
 import PhotoCard from 'components/PhotoCard';
-// import HeaderBar from 'components/HeaderBar';
+import HeaderBar from 'components/HeaderBar';
 import { Grid, Row, Button } from 'react-bootstrap/lib';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
@@ -45,15 +45,13 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           </h1>
           <Grid>
             <Row>
+              <HeaderBar />
               <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
               <PhotoCard key="b" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
               <PhotoCard key="c" source="https://drive.google.com/uc?export=view&id=1EYOolrJoOvkZHV9bL1jkaGl9-57H6NFT" />
               <PhotoCard key="d" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
             </Row>
           </Grid>
-          <Button onClick={this.onButtonClick}> BERLIN </Button>
-          <Button> MELBOURNE </Button>
-          <Button> DUBLIN </Button>
         </div>
       </Wrapper>
     );

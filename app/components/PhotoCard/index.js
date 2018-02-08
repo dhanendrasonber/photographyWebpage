@@ -20,13 +20,13 @@ class PhotoCard extends React.Component { // eslint-disable-line react/prefer-st
   render() {
     return (
       <div>
-        <Col xs={12} sm={12} md={6} lg={4}>
-          <Wrapper>
+        <Wrapper>
+          <Col xs={12} sm={12} md={6} lg={6}>
             <div className="photo-card">
-              <Image src={this.props.source} onLoad={this.handleImageLoaded}/>
+              <Image src={this.props.source} onLoad={this.handleImageLoaded} />
             </div>
-          </Wrapper>
-        </Col>
+          </Col>
+        </Wrapper>
       </div>
     );
   }
