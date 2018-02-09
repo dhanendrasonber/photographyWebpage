@@ -22,6 +22,5 @@ export function* pageLoaded() {
 export default function* watchPageLoad() {
   console.log('listening for page load');
   yield takeLatest(PAGE_LOAD, pageLoaded);
-  yield take(LOCATION_CHANGE);
   console.log('*******');
 }
