@@ -37,6 +37,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     console.log('buttonclick');
     this.props.onPageLoad();
   }
+  //https://drive.google.com/file/d/135bLR52cUkhV2ZAzGDzMpuUJHx-Hl8Y5/view?usp=sharing
   render() {
     return (
       <Wrapper>
@@ -54,10 +55,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                 <PhotoCard key="b" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
               </Col>
               <Col lg={6}>
-                <PhotoCard key="c" source="https://drive.google.com/uc?export=view&id=1EYOolrJoOvkZHV9bL1jkaGl9-57H6NFT" />
+                <PhotoCard key="c" source="https://drive.google.com/uc?export=open&id=1KGYuwiZGXnBPyjYTlhlyrYZeKMGv7B7j" />
               </Col>
               <Col lg={6}>
-                <PhotoCard key="d" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
+                <PhotoCard key="c" source="https://drive.google.com/uc?export=open&id=135bLR52cUkhV2ZAzGDzMpuUJHx-Hl8Y5" />
               </Col>
             </Row>
           </Grid>
