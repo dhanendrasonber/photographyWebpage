@@ -18,8 +18,10 @@ export function* pageLoaded() {
     const images = yield all(folders.map((folder) => {
       return call(retrieveImages, token, folder.id)
     }));
-    
-    yield put(retrieveURLsSuccess());
+    const imageUrls = images.map((imageSet) => {
+      return imageSet.map((image) => `https://drive.google.com/uc?export=view&id=${image.id}`);
+    });
+    yield put(retrieveURLsSuccess(imageUrls));
   } catch (err) {
     yield put(retrieveURLsFailure(err));
   }
