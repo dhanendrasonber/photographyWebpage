@@ -46,8 +46,17 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
   render() {
     const { titleList, urlList } = this.props;
+    const { activePage } = this.state;
     console.log(urlList);
     console.log('active page: ', this.state.activePage);
+    const photos = urlList.map((regionList) => {
+      return (regionList.map((url) => (
+        <Col lg={6}>
+          <PhotoCard source={url} />
+        </Col>
+      )));
+    });
+    console.log(photos);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -57,18 +66,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <Grid>
             <Row>
               <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />
-              <Col lg={6}>
-                <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
-              </Col>
-              <Col lg={6}>
-                <PhotoCard key="b" source="http://vaughanstedman.me/b3ae6362db9706d6eb1de8c202f1956f.jpg" />
-              </Col>
-              <Col lg={6}>
-                <PhotoCard key="c" source="https://drive.google.com/uc?export=open&id=1KGYuwiZGXnBPyjYTlhlyrYZeKMGv7B7j" />
-              </Col>
-              <Col lg={6}>
-                <PhotoCard key="c" source="https://drive.google.com/uc?export=open&id=135bLR52cUkhV2ZAzGDzMpuUJHx-Hl8Y5" />
-              </Col>
+              {photos[activePage]}
             </Row>
           </Grid>
         </div>
