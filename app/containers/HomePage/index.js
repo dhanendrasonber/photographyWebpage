@@ -13,19 +13,21 @@
 import React from 'react';
 import PhotoCard from 'components/PhotoCard';
 import HeaderBar from 'components/HeaderBar';
-import { Grid, Row, Button, Col } from 'react-bootstrap/lib';
+import { Grid, Row, Col } from 'react-bootstrap/lib';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 // import { RESTART_ON_REMOUNT } from 'utils/constants';ss
 import saga from './saga';
+import reducer from './reducer';
 
 import messages from './messages';
 import * as actions from './actions';
-import { makeSelectActivePage } from './selectors';
+import { makeSelectTitleList, makeSelectUrlList } from './selectors';
 import Wrapper from './Wrapper';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -39,6 +41,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
   //https://drive.google.com/file/d/135bLR52cUkhV2ZAzGDzMpuUJHx-Hl8Y5/view?usp=sharing
   render() {
+    console.log('urls: ', this.props.urlList);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -69,6 +72,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 }
 
 const mapStateToProps = createStructuredSelector({
+  titleList: makeSelectTitleList(),
+  urlList: makeSelectUrlList(),
 });
 
 function mapDispatchToProps(dispatch) {

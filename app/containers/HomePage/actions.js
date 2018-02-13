@@ -24,10 +24,14 @@ export function pageLoadAction() {
   };
 }
 
-export function retrieveURLsSuccess() {
+export function retrieveURLsSuccess(titles, imageUrls) {
   console.log('retrieveURLsSuccess');
+  console.log(imageUrls);
   return {
     type: URL_SUCCESS,
+    payload: { titles,
+      imageUrls,
+    },
   };
 }
 

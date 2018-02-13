@@ -19,8 +19,20 @@ const makeSelectActivePage = () => createSelector(
   (substate) => substate.get('activePage')
 );
 
+const makeSelectTitleList = () => createSelector(
+  selectHomePageDomain,
+  (substate) => substate.get('titleList')
+);
+
+const makeSelectUrlList = () => createSelector(
+  selectHomePageDomain,
+  (substate) => substate.get('urlList')
+);
+
 export default makeSelectHomePage;
 export {
   selectHomePageDomain,
   makeSelectActivePage,
+  makeSelectTitleList,
+  makeSelectUrlList,
 };

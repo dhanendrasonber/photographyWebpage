@@ -14,8 +14,8 @@ export function refreshTokenConfig() {
 }
 
 export function googleAuthConfig(token, folderId) {
-  console.log('===');
-  console.log(token);
+  // console.log('===');
+  // console.log(token);
   return {
     baseURL: `https://www.googleapis.com/drive/v2/files/${folderId}`, // id of my public folder
     timeout: 3000,
@@ -34,33 +34,32 @@ export function refreshToken() {
   const authSession = axios.create(refreshTokenConfig());
   return authSession.post(path, parameters)
   .then((response) => {
-    console.log('respsonse:', response);
+    // console.log('respsonse:', response);
     return response;
   });
 }
 
 export function retrieveFolders(token) {
   // GET https://www.googleapis.com/drive/v2/files/1Iv8dHdXs7Vvdz0PC9lnU2fE-oBmXOIlh/children
-  console.log('retriveFolders SERVICE');
+  // console.log('retriveFolders SERVICE');
   const path = '/children';
   const authSession = axios.create(googleAuthConfig(token, '1Iv8dHdXs7Vvdz0PC9lnU2fE-oBmXOIlh'));
   return authSession.get(path)
   .then((response) => {
-    console.log('retrieveFolders respsonse:', response);
+    // console.log('retrieveFolders respsonse:', response);
     return response;
   });
 }
 
-export function retrieveImages(token, folderId) {
+export function retrieveFolderData(token, folderId, path) {
   // GET https://www.googleapis.com/drive/v2/files/folderId/children
-  console.log('Retrieve IMAGES');
-  console.log(token);
-  console.log(folderId);
-  const path = '/children';
+  // console.log('Retrieve IMAGES');
+  // console.log(token);
+  // console.log(folderId);
   const authSession = axios.create(googleAuthConfig(token, folderId));
   return authSession.get(path)
   .then((response) => {
     console.log('retrieveFolders respsonse:', response);
-    return response.data.items;
+    return response.data;
   });
 }
