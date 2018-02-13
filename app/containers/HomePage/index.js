@@ -39,9 +39,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     console.log('buttonclick');
     this.props.onPageLoad();
   }
-  //https://drive.google.com/file/d/135bLR52cUkhV2ZAzGDzMpuUJHx-Hl8Y5/view?usp=sharing
   render() {
-    console.log('urls: ', this.props.urlList);
+    const { titleList, urlList } = this.props;
+
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -50,7 +50,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           </h1>
           <Grid>
             <Row>
-              <HeaderBar />
+              <HeaderBar titles={titleList}/>
               <Col lg={6}>
                 <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
               </Col>
