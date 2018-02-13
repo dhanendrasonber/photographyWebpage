@@ -24,7 +24,7 @@ function homePageReducer(state = initialState, action) {
     case PAGE_LOAD:
       console.log('PAGE LOAD REDUCED');
       return state
-          .set('activePage', 'true');
+          .set('activePage', null);
     case URL_SUCCESS:
       console.log('Reducing URLS into state');
       console.log(action);

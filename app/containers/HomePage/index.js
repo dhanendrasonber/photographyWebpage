@@ -11,6 +11,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import PhotoCard from 'components/PhotoCard';
 import HeaderBar from 'components/HeaderBar';
 import { Grid, Row, Col } from 'react-bootstrap/lib';
@@ -20,14 +21,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 // import { RESTART_ON_REMOUNT } from 'utils/constants';ss
 import saga from './saga';
-import reducer from './reducer';
 
 import messages from './messages';
 import * as actions from './actions';
-import { makeSelectTitleList, makeSelectUrlList } from './selectors';
+import { makeSelectActivePage, makeSelectTitleList, makeSelectUrlList } from './selectors';
 import Wrapper from './Wrapper';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -40,8 +39,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.onPageLoad();
   }
   render() {
-    const { titleList, urlList } = this.props;
-
+    const { activePage, titleList, urlList } = this.props;
+    console.log(urlList);
+    console.log('active page: ', activePage);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -50,7 +50,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           </h1>
           <Grid>
             <Row>
-              <HeaderBar titles={titleList}/>
+              <HeaderBar titles={titleList} />
               <Col lg={6}>
                 <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
               </Col>
@@ -71,7 +71,15 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
+HomePage.propTypes = {
+  activePage: PropTypes.string,
+  titleList: PropTypes.array,
+  urlList: PropTypes.array,
+  onPageLoad: PropTypes.func,
+};
+
 const mapStateToProps = createStructuredSelector({
+  activePage: makeSelectActivePage(),
   titleList: makeSelectTitleList(),
   urlList: makeSelectUrlList(),
 });

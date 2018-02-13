@@ -59,7 +59,7 @@ export function retrieveFolderData(token, folderId, path) {
   const authSession = axios.create(googleAuthConfig(token, folderId));
   return authSession.get(path)
   .then((response) => {
-    console.log('retrieveFolders respsonse:', response);
+    // console.log('retrieveFolders respsonse:', response);
     return response.data;
   });
 }
