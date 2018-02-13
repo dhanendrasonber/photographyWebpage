@@ -12,7 +12,7 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  activePage: '',
+  activePage: null,
   titleList: [],
   urlList: [],
 });

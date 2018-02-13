@@ -26,22 +26,28 @@ import saga from './saga';
 
 import messages from './messages';
 import * as actions from './actions';
-import { makeSelectActivePage, makeSelectTitleList, makeSelectUrlList } from './selectors';
+import { makeSelectTitleList, makeSelectUrlList } from './selectors';
 import Wrapper from './Wrapper';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: null,
+    };
+  }
   componentDidMount() {
     console.log('MOUNT');
     this.props.onPageLoad();
   }
-  onButtonClick = () => {
-    console.log('buttonclick');
-    this.props.onPageLoad();
+  onButtonClick = (index) => {
+    console.log('buttonclick', index);
+    this.setState({ activePage: index });
   }
   render() {
-    const { activePage, titleList, urlList } = this.props;
+    const { titleList, urlList } = this.props;
     console.log(urlList);
-    console.log('active page: ', activePage);
+    console.log('active page: ', this.state.activePage);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -50,7 +56,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           </h1>
           <Grid>
             <Row>
-              <HeaderBar titles={titleList} />
+              <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />
               <Col lg={6}>
                 <PhotoCard key="a" source="http://vaughanstedman.me/a2a7e31342fa30e92761e3996b0403d8.jpg" />
               </Col>
@@ -72,14 +78,18 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 }
 
 HomePage.propTypes = {
-  activePage: PropTypes.string,
-  titleList: PropTypes.array,
-  urlList: PropTypes.array,
+  titleList: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+  urlList: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   onPageLoad: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  activePage: makeSelectActivePage(),
   titleList: makeSelectTitleList(),
   urlList: makeSelectUrlList(),
 });

@@ -13,8 +13,8 @@ import { Button, Col } from 'react-bootstrap/lib';
 class HeaderBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const titleButtons = this.props.titles.map((title, index) => {
-      console.log(index);
-      return (<Button key={title} onClick={this.props.changeLocation}> {title} </Button>);
+      // console.log(index);
+      return (<Button key={title} onClick={() => { this.props.onButtonClick(index); }}> {title} </Button>);
     });
     return (
       <Col xs={12} sm={12} md={12} lg={12}>
@@ -25,8 +25,11 @@ class HeaderBar extends React.Component { // eslint-disable-line react/prefer-st
 }
 
 HeaderBar.propTypes = {
-  titles: PropTypes.array,
-  changeLocation: PropTypes.func,
+  titles: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+  onButtonClick: PropTypes.func,
 };
 
 export default HeaderBar;
