@@ -13,8 +13,6 @@ import { Button, Col, Row } from 'react-bootstrap/lib';
 class HeaderBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillEnter(callback) {
     const el = this.container;
-    console.log('Will enter');
-    console.log(this);
     TweenMax.fromTo(el, 1, { y: 100, opacity: 0 }, { y: 0, opacity: 1, onComplete: callback });
   }
   render() {

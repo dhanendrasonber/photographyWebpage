@@ -40,16 +40,16 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.onLoad = this.onLoad.bind(this);
   }
   componentDidMount() {
-    console.log('MOUNT');
+    // console.log('MOUNT');
     this.props.onPageLoad();
   }
   onButtonClick = (index) => {
-    console.log('buttonclick', index);
+    // console.log('buttonclick', index);
     this.setState({ loadedItems: [] });
     this.setState({ activePage: index });
   }
   onLoad(feedItem) {
-    console.log('running onLoad ', feedItem.target.src);
+    // console.log('running onLoad ', feedItem.target.src);
     feedItem.persist();
     const newCard = (
       <Col lg={6}>
@@ -70,15 +70,13 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       )));
     });
     const loadedPhotos = loadedItems.map((url, i) => {
-      console.log(url);
+      // console.log(url);
       return (
         <Col lg={6} key={`${url}-${i}`}>
           <PhotoCard key={url} source={url} />
         </Col>
       );
     });
-    console.log('****');
-    console.log(dataRetrieved);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -88,14 +86,14 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <Grid>
             <TransitionGroup>
               {dataRetrieved && (<HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />)}
+              <Row>
+                {loadedPhotos}
+              </Row>
             </TransitionGroup>
-            <Row>
-              {loadedPhotos}
-              <div className="hidden">
-                {photoLoader[activePage]}
-              </div>
-            </Row>
           </Grid>
+        </div>
+        <div className="hidden">
+          {photoLoader[activePage]}
         </div>
       </Wrapper>
     );
