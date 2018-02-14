@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import { TweenMax } from 'gsap';
-import { Button, Col } from 'react-bootstrap/lib';
+import { Button, Col, Row } from 'react-bootstrap/lib';
 
 class HeaderBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillEnter(callback) {
@@ -24,9 +24,11 @@ class HeaderBar extends React.Component { // eslint-disable-line react/prefer-st
     });
     return (
       <div ref={(c) => (this.container = c)}>
-        <Col xs={12} sm={12} md={12} lg={12}>
-          {titleButtons}
-        </Col>
+        <Row>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            {titleButtons}
+          </Col>
+        </Row>
       </div>
     );
   }

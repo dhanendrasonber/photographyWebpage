@@ -57,7 +57,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       </Col>
     );
     this.setState(({ loadedItems }) => {
-      return { loadedItems: this.state.loadedItems.concat(newCard) };
+      return { loadedItems: this.state.loadedItems.concat(feedItem.target.src) };
     })
   }
   render() {
@@ -69,12 +69,13 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         <img src={url} onLoad={this.onLoad} key={`${url}-${i}`} />
       )));
     });
-    const photos = urlList.map((regionList) => {
-      return (regionList.map((url) => (
-        <Col lg={6}>
-          <PhotoCard source={url} onLoad={this.onLoad} />
+    const loadedPhotos = loadedItems.map((url, i) => {
+      console.log(url);
+      return (
+        <Col lg={6} key={`${url}-${i}`}>
+          <PhotoCard key={url} source={url} />
         </Col>
-      )));
+      );
     });
     console.log('****');
     console.log(dataRetrieved);
@@ -85,11 +86,11 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
             <FormattedMessage {...messages.header} />
           </h1>
           <Grid>
+            <TransitionGroup>
+              {dataRetrieved && (<HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />)}
+            </TransitionGroup>
             <Row>
-              <TransitionGroup>
-                {dataRetrieved && <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />}
-                {loadedItems}
-              </TransitionGroup>
+              {loadedPhotos}
               <div className="hidden">
                 {photoLoader[activePage]}
               </div>
