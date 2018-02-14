@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Image } from 'react-bootstrap/lib';
+import { Image, Button } from 'react-bootstrap/lib';
 
 import { TweenMax } from 'gsap';
 import Wrapper from './Wrapper';
@@ -23,7 +23,7 @@ class PhotoCard extends React.Component { // eslint-disable-line react/prefer-st
       <div ref={(c) => (this.container = c)}>
         <Wrapper>
           <div className="photo-card">
-            <Image src={this.props.source} onLoad={this.props.onLoad} />
+            <a href="javascript:void(0)" onClick={this.props.onClick}><Image src={this.props.source} onLoad={this.props.onLoad} /></a>
           </div>
         </Wrapper>
       </div>
@@ -34,6 +34,7 @@ class PhotoCard extends React.Component { // eslint-disable-line react/prefer-st
 PhotoCard.propTypes = {
   source: PropTypes.string,
   onLoad: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default PhotoCard;

@@ -14,7 +14,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PhotoCard from 'components/PhotoCard';
 import HeaderBar from 'components/HeaderBar';
-import { Grid, Row, Col } from 'react-bootstrap/lib';
+import { Grid, Row, Col, Modal, Button } from 'react-bootstrap/lib';
 import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -36,8 +36,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.state = {
       activePage: null,
       loadedItems: [],
+      showModal: false,
     };
     this.onLoad = this.onLoad.bind(this);
+    this.onPhotoClick = this.onPhotoClick.bind(this);
   }
   componentDidMount() {
     // console.log('MOUNT');
@@ -48,6 +50,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.setState({ loadedItems: [] });
     this.setState({ activePage: index });
   }
+  onPhotoClick(event) {
+    console.log('show modal');
+    this.setState({ modalUrl: event.target.src });
+    this.setState({ showModal: true });
+  }
+
   onLoad(feedItem) {
     // console.log('running onLoad ', feedItem.target.src);
     feedItem.persist();
@@ -62,7 +70,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
   render() {
     const { titleList, urlList, dataRetrieved } = this.props;
-    const { activePage, loadedItems } = this.state;
+    const { activePage, loadedItems, showModal } = this.state;
 
     const photoLoader = urlList.map((regionList) => {
       return (regionList.map((url, i) => (
@@ -73,13 +81,24 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       // console.log(url);
       return (
         <Col lg={4} sm={6} key={`${url}-${i}`}>
-          <PhotoCard key={url} source={url} />
+          <PhotoCard key={url} source={url} onClick={this.onPhotoClick}/>
         </Col>
       );
     });
     return (
       <Wrapper>
         <div className="photo-canvas">
+          <Modal show={this.state.showModal} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>Text in a modal</h4>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleClose}>Close</Button>
+            </Modal.Footer>
+          </Modal>
           <h1>
             <FormattedMessage {...messages.header} />
           </h1>

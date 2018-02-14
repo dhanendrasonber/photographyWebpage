@@ -4,6 +4,10 @@ export default styled.div`
 h1 {
   font-weight: 200;
 }
+.modal{
+  display:block;
+}
+
 .photo-canvas {
   text-align: center;
   background-color: #3A3535;
