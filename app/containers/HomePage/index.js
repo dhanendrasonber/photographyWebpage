@@ -72,7 +72,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     const loadedPhotos = loadedItems.map((url, i) => {
       // console.log(url);
       return (
-        <Col lg={6} key={`${url}-${i}`}>
+        <Col lg={4} sm={6} key={`${url}-${i}`}>
           <PhotoCard key={url} source={url} />
         </Col>
       );
@@ -83,7 +83,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <h1>
             <FormattedMessage {...messages.header} />
           </h1>
-          <Grid>
+          <Grid fluid>
             <TransitionGroup>
               {dataRetrieved && (<HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />)}
               <Row>
