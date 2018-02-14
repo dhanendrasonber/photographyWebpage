@@ -19,6 +19,7 @@ import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import TransitionGroup from 'react-addons-transition-group';
 
 import injectSaga from 'utils/injectSaga';
 // import { RESTART_ON_REMOUNT } from 'utils/constants';ss
@@ -26,7 +27,7 @@ import saga from './saga';
 
 import messages from './messages';
 import * as actions from './actions';
-import { makeSelectTitleList, makeSelectUrlList } from './selectors';
+import { makeSelectTitleList, makeSelectUrlList, makeSelectDataRetrieved } from './selectors';
 import Wrapper from './Wrapper';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -52,7 +53,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     feedItem.persist();
     const newCard = (
       <Col lg={6}>
-        <PhotoCard source={feedItem.target.src} />
+        <PhotoCard key={feedItem.target.src} source={feedItem.target.src} />
       </Col>
     );
     this.setState(({ loadedItems }) => {
@@ -60,16 +61,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     })
   }
   render() {
-    const { titleList, urlList } = this.props;
+    const { titleList, urlList, dataRetrieved } = this.props;
     const { activePage, loadedItems } = this.state;
-    // console.log(urlList);
-    // console.log('active page: ', this.state.activePage);
-
-    // const loadPhotos = urlList[activePage].map((regionList) => {
-    //   return (regionList.map((url) => (
-    //     <img src={url} onLoad={this.onLoad} key={url}/>
-    //   )));
-    // });
 
     const photoLoader = urlList.map((regionList) => {
       return (regionList.map((url, i) => (
@@ -83,19 +76,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         </Col>
       )));
     });
-    // const displayPhotos = photos[activePage];
-
-    // const displayPhotos = this.state.loadedItems.map((item, i) => {
-    //   console.log('***');
-    //   console.log(item.src);
-    //   console.log(i);
-    //   return (
-    //     <Col lg={6}>
-    //       <PhotoCard source={item.url} />
-    //     </Col>
-    //   );
-    // });
-    console.log(this.state.loadedItems);
+    console.log('****');
+    console.log(dataRetrieved);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -104,8 +86,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           </h1>
           <Grid>
             <Row>
-              <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />
-              {this.state.loadedItems}
+              <TransitionGroup>
+                {dataRetrieved && <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />}
+                {loadedItems}
+              </TransitionGroup>
               <div className="hidden">
                 {photoLoader[activePage]}
               </div>
@@ -126,10 +110,12 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+  dataRetrieved: PropTypes.bool,
   onPageLoad: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
+  dataRetrieved: makeSelectDataRetrieved(),
   titleList: makeSelectTitleList(),
   urlList: makeSelectUrlList(),
 });

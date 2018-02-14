@@ -13,6 +13,7 @@ import {
 
 const initialState = fromJS({
   activePage: null,
+  dataRetrieved: false,
   titleList: [],
   urlList: [],
 });
@@ -29,6 +30,7 @@ function homePageReducer(state = initialState, action) {
       console.log('Reducing URLS into state');
       console.log(action);
       return state
+          .set('dataRetrieved', true)
           .set('urlList', action.payload.imageUrls)
           .set('titleList', action.payload.titles);
     default:

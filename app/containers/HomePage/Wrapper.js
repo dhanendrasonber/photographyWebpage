@@ -10,6 +10,9 @@ h1 {
   height: 100%;
   color: white;
 }
+.header-text {
+  text-align: center;
+}
 .hidden {
   display: none;
 }
