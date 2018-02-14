@@ -12,7 +12,6 @@ export default styled.div`
 img {
   background-color: white;
   border: 2%;
-  border-radius: 2%;
   max-width: 95%;
   padding: 10px;
   position: relative;
