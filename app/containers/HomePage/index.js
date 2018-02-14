@@ -34,7 +34,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     super(props);
     this.state = {
       activePage: null,
+      loadedItems: [],
     };
+    this.onLoad = this.onLoad.bind(this);
   }
   componentDidMount() {
     console.log('MOUNT');
@@ -42,21 +44,58 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
   onButtonClick = (index) => {
     console.log('buttonclick', index);
+    this.setState({ loadedItems: [] });
     this.setState({ activePage: index });
+  }
+  onLoad(feedItem) {
+    console.log('running onLoad ', feedItem.target.src);
+    feedItem.persist();
+    const newCard = (
+      <Col lg={6}>
+        <PhotoCard source={feedItem.target.src} />
+      </Col>
+    );
+    this.setState(({ loadedItems }) => {
+      return { loadedItems: this.state.loadedItems.concat(newCard) };
+    })
   }
   render() {
     const { titleList, urlList } = this.props;
-    const { activePage } = this.state;
-    console.log(urlList);
-    console.log('active page: ', this.state.activePage);
+    const { activePage, loadedItems } = this.state;
+    // console.log(urlList);
+    // console.log('active page: ', this.state.activePage);
+
+    // const loadPhotos = urlList[activePage].map((regionList) => {
+    //   return (regionList.map((url) => (
+    //     <img src={url} onLoad={this.onLoad} key={url}/>
+    //   )));
+    // });
+
+    const photoLoader = urlList.map((regionList) => {
+      return (regionList.map((url, i) => (
+        <img src={url} onLoad={this.onLoad} key={`${url}-${i}`} />
+      )));
+    });
     const photos = urlList.map((regionList) => {
       return (regionList.map((url) => (
         <Col lg={6}>
-          <PhotoCard source={url} />
+          <PhotoCard source={url} onLoad={this.onLoad} />
         </Col>
       )));
     });
-    console.log(photos);
+    // const displayPhotos = photos[activePage];
+
+    // const displayPhotos = this.state.loadedItems.map((item, i) => {
+    //   console.log('***');
+    //   console.log(item.src);
+    //   console.log(i);
+    //   return (
+    //     <Col lg={6}>
+    //       <PhotoCard source={item.url} />
+    //     </Col>
+    //   );
+    // });
+    console.log(this.state.loadedItems);
     return (
       <Wrapper>
         <div className="photo-canvas">
@@ -66,7 +105,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <Grid>
             <Row>
               <HeaderBar titles={titleList} onButtonClick={this.onButtonClick} />
-              {photos[activePage]}
+              {this.state.loadedItems}
+              <div className="hidden">
+                {photoLoader[activePage]}
+              </div>
             </Row>
           </Grid>
         </div>
