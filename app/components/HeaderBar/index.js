@@ -16,10 +16,7 @@ class HeaderBar extends React.Component { // eslint-disable-line react/prefer-st
     TweenMax.fromTo(el, 1, { y: 100, opacity: 0 }, { y: 0, opacity: 1, onComplete: callback });
   }
   render() {
-    const titleButtons = this.props.titles.map((title, index) => {
-      // console.log(index)
-      return (<Button key={title} onClick={() => { this.props.onButtonClick(index); }}> {title} </Button>);
-    });
+    const titleButtons = this.props.titles.map((title, index) => (<Button key={title} onClick={() => { this.props.onButtonClick(index); }}> {title} </Button>));
     return (
       <div ref={(c) => (this.container = c)}>
         <Row>

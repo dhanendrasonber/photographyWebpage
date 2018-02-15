@@ -51,44 +51,33 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.setState({ activePage: index });
   }
   onPhotoClick(event) {
-    console.log('show modal');
+    // console.log('show modal');
     this.setState({ modalUrl: event.target.src });
     this.setState({ showModal: true });
   }
 
   onLoad(feedItem) {
-    // console.log('running onLoad ', feedItem.target.src);
     feedItem.persist();
-    const newCard = (
-      <Col lg={6}>
-        <PhotoCard key={feedItem.target.src} source={feedItem.target.src} />
-      </Col>
-    );
-    this.setState(({ loadedItems }) => {
-      return { loadedItems: this.state.loadedItems.concat(feedItem.target.src) };
-    })
+    this.setState(({ loadedItems }) => ({ loadedItems: this.state.loadedItems.concat(feedItem.target.src) }));
   }
   render() {
     const { titleList, urlList, dataRetrieved } = this.props;
     const { activePage, loadedItems, showModal } = this.state;
 
-    const photoLoader = urlList.map((regionList) => {
-      return (regionList.map((url, i) => (
-        <img src={url} onLoad={this.onLoad} key={`${url}-${i}`} />
-      )));
-    });
-    const loadedPhotos = loadedItems.map((url, i) => {
+    const photoLoader = urlList.map((regionList) => (regionList.map((url) => (
+      <img alt="" src={url} onLoad={this.onLoad} key={`${url}`} />
+      ))));
+    const loadedPhotos = loadedItems.map((url) =>
       // console.log(url);
-      return (
-        <Col lg={4} sm={6} key={`${url}-${i}`}>
-          <PhotoCard key={url} source={url} onClick={this.onPhotoClick}/>
-        </Col>
-      );
-    });
+       (
+         <Col lg={4} sm={6} key={url}>
+           <PhotoCard key={url} source={url} onClick={this.onPhotoClick} />
+         </Col>
+      ));
     return (
       <Wrapper>
         <div className="photo-canvas">
-          <Modal show={this.state.showModal} onHide={this.handleClose}>
+          <Modal show={showModal} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
