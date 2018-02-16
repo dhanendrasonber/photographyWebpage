@@ -5,8 +5,9 @@ export default styled.div`
 
 
 .photo-card {
-  height: 100%;
-  padding-top: 40px;
+  height: 45%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 img {
