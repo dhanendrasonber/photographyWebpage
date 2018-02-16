@@ -58,7 +58,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
   onLoad(feedItem) {
     feedItem.persist();
-    this.setState(({ loadedItems }) => ({ loadedItems: this.state.loadedItems.concat(feedItem.target.src) }));
+    this.setState(() => ({ loadedItems: this.state.loadedItems.concat(feedItem.target.src) }));
   }
   render() {
     const { titleList, urlList, dataRetrieved } = this.props;
