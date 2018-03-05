@@ -1,1 +1,1 @@
-This repository has been replaced by 'photo-webpage' after a migration 
+This repository has been abandoned and  replaced by 'photo-webpage' after a migration 
